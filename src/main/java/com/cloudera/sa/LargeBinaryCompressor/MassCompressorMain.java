@@ -110,6 +110,12 @@ public class MassCompressorMain {
 			FileSystem fs = FileSystem.get(context.getConfiguration());
 			String outputFolder = context.getConfiguration().get(OUTPUT_FOLDER);
             String compressionCodec = context.getConfiguration().get("compressionCodec");
+            String extension = "";
+            if (compressionCodec.equals("gzip")) {
+            extension = ".gz";
+            } else if (compressionCodec.equals("bzip2")){
+              extension = ".bz2";
+            }
 
             System.out.println("THe codec is : " + compressionCodec);
 
@@ -121,7 +127,8 @@ public class MassCompressorMain {
 					+ "-"
 					+ StringUtils.leftPad(
 							Integer.toString(context.getTaskAttemptID()
-									.getTaskID().getId()), 5, '0'));
+									.getTaskID().getId()), 5, '0')
+                   + extension);
 
 			try {
             if (compressionCodec.equals("gzip")) {
